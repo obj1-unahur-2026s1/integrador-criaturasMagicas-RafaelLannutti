@@ -14,9 +14,10 @@ class Criatura{
     method esFormidable()
 
     //method esExtraordinario()
-    method rolParque(){
-       return rolParque.cambiarRol()
+    method ritual(){
+        rolParque = rolParque.cambiarRol()
     }
+
 
 
 }
@@ -33,6 +34,10 @@ object guardian {
     method cambiarRol() {
      return new Domador(mascotasQueEntreno = [new Mascota(edad = 1, tieneCuernos = false)])
     }
+    
+    method ritual(){
+
+    }
 }
 
 class Domador {
@@ -46,7 +51,7 @@ class Domador {
     }
 
     method mascotasConCuernos(){
-        return mascotasQueEntreno.filter({m => m.tieneCuernos()})
+        return mascotasQueEntreno.any({m => m.tieneCuernos()})
     }
 
     method esExtraordinario(){
@@ -55,8 +60,10 @@ class Domador {
   
     method cambiarRol(){
         if (self.mascotasConCuernos()){
-            return Hechizero
-        }else {raise Exception "no "}
+            return hechicero
+        }else{
+            self.error("no se pudio")
+        }
     }
 }
 
