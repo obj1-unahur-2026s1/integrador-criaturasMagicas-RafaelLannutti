@@ -54,7 +54,9 @@ class Domador {
     }
   
     method cambiarRol(){
-        if (self.mascotasConCuernos()){}
+        if (self.mascotasConCuernos()){
+            return Hechizero
+        }else {raise Exception "no "}
     }
 }
 
