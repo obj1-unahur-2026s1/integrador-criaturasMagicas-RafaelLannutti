@@ -18,7 +18,9 @@ class Criatura{
         rolParque = rolParque.cambiarRol()
     }
 
-
+    method perder15DePoder(){
+        poderMagico =poderMagico *0.85
+    }
 
 }
 //Roles
@@ -127,5 +129,46 @@ class Hada inherits Criatura{
     }
     method esExtraordinario(){
         return kilometrosQueVuela >= 10
+    }
+}
+
+
+class Colonia {
+    const criaturas = []
+
+    method poderOfensivo(){
+        return criaturas.sum({c => c.poderOfensivo() })
+    }
+    method atacarA(unArea){
+        if(self.poderOfensivo() > unArea.poderDefensivo()){
+            unArea.esUsurpada(self)
+        }else{
+            criaturas.forEach({c => c.perder15DePoder()})
+        }
+    }
+}
+class Area{
+    var colonia = new Colonia(criaturas=[])
+    method poderDefensivo()
+
+    method cantidadDeCriaturasFormidables() {
+      colonia.count({c => c.esFormidable()})
+    }
+
+    method esUsurpada(unaColonia) {
+      colonia = unaColonia
+    }
+}
+
+class Castillo inherits Area{
+
+    override method poderDefensivo(){
+        return 200 * colonia.cantidadDeCriaturasFormidables()
+    }
+}
+
+class Claro inherits Area{
+    override method poderDefensivo(){
+        return 100 + colonia.poderOfensivo()
     }
 }
